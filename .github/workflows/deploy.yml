@@ -14,6 +14,9 @@ jobs:
       - name: "kube availability test"
         run: |
              mkdir -p /root/.kube
+             echo -n "$KUBE_FILE" > $KUBECONFIG
              kubectl version
              helm version
              helm2 version || true
+        env:
+          KUBE_FILE: ${{ secrets.KUBECONFIG_DEV_SECRET }}
