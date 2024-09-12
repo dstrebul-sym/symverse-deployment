@@ -2,5 +2,17 @@ on: [push]
 jobs:
   deploy:
     runs-on: symverse-deploy
+    container:
+      image: proget.repo.symbotic.corp/dev_images/library/symverse-deploy:v2.1.2
+      env:
+        DEPLOYMENT_RELEASE: test
+        DEPLOYMENT_NAMESPACE: sandbox
+        KUBECONFIG: "/root/.kube/config"
     steps:
       - run: echo "Deploy test"
+        name: "Echo test"
+      - name: "kube availability test"
+        run: |
+             kubectl version
+             helm version
+             helm2 version || true
