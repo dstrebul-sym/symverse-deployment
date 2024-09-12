@@ -13,6 +13,7 @@ jobs:
         name: "Echo test"
       - name: "kube availability test"
         run: |
+             mkdir -p /root/.kube
              kubectl version
              helm version
              helm2 version || true
