@@ -1,5 +1,7 @@
 on: [push]
 jobs:
+  baseCall:
+    uses: dstrebul-sym/symverse-infra/.github/workflows/base.yml@master
   deploy:
     runs-on: symverse-deploy
     container:
@@ -11,8 +13,6 @@ jobs:
         KUBE_FILE: ${{ secrets.KUBECONFIG_DEV_SECRET }}
         DEPLOYMENT_FOLDER: test
     steps:
-      - name: call base wf
-        uses: dstrebul-sym/symverse-infra/.github/workflows/base.yml@master
       - name: Checkout repo 
         run: |
              rm -rf deploy
