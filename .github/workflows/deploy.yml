@@ -8,6 +8,8 @@ jobs:
         DEPLOYMENT_RELEASE: test
         DEPLOYMENT_NAMESPACE: sandbox
         KUBECONFIG: "/root/.kube/config"
+        KUBE_FILE: ${{ secrets.KUBECONFIG_DEV_SECRET }}
+        DEPLOYMENT_FOLDER: test
     steps:
       - run: echo "Deploy test"
         name: "Echo test"
@@ -18,5 +20,22 @@ jobs:
              kubectl version
              helm version
              helm2 version || true
-        env:
-          KUBE_FILE: ${{ secrets.KUBECONFIG_DEV_SECRET }}
+      - name: "helm repos update"
+        run: |
+             helm repo add incubator https://charts.helm.sh/incubator --debug
+             helm repo add stable https://charts.helm.sh/stable
+             helm repo add symbotic https://proget.repo.symbotic.corp/helm/SymboticHelm/
+             helm repo add third https://proget.repo.symbotic.corp/helm/Third-Party-Helm/
+             helm repo add fluent https://fluent.github.io/helm-charts
+             helm repo add elastic https://helm.elastic.co
+             helm repo update
+      - name: "service deploy"
+        run: |
+             git diff HEAD~1
+             python3 /scripts/deploy.py
+             --folder ${DEPLOYMENT_FOLDER}
+             --name ${DEPLOYMENT_RELEASE}
+             --namespace ${DEPLOYMENT_NAMESPACE}
+             --args -f common/values.yaml -f ${DEPLOYMENT_FOLDER}/values.yaml
+        
+
