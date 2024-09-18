@@ -40,10 +40,10 @@ jobs:
         run: |
              cd deploy
              git diff HEAD~1
-             python3 /scripts/deploy.py
-             --folder ${DEPLOYMENT_FOLDER}
-             --name ${DEPLOYMENT_RELEASE}
-             --namespace ${DEPLOYMENT_NAMESPACE}
+             python3 /scripts/deploy.py \
+             --folder ${DEPLOYMENT_FOLDER} \
+             --name ${DEPLOYMENT_RELEASE} \
+             --namespace ${DEPLOYMENT_NAMESPACE} \
              --args -f common/values.yaml -f ${DEPLOYMENT_FOLDER}/values.yaml
         
 
