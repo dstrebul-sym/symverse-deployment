@@ -11,6 +11,10 @@ jobs:
         KUBE_FILE: ${{ secrets.KUBECONFIG_DEV_SECRET }}
         DEPLOYMENT_FOLDER: test
     steps:
+      - name: Checkout repo 
+        run: |
+             git clone https://github.com/dstrebul-sym/symverse-deployment.git
+             cd symverse-deployment
       - run: echo "Deploy test"
         name: "Echo test"
       - name: "kube availability test"
@@ -31,6 +35,7 @@ jobs:
              helm repo update
       - name: "service deploy"
         run: |
+             pwd
              git diff HEAD~1
              python3 /scripts/deploy.py
              --folder ${DEPLOYMENT_FOLDER}
