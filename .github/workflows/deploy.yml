@@ -13,9 +13,10 @@ jobs:
     steps:
       - name: Checkout repo 
         run: |
-             git clone https://github.com/dstrebul-sym/symverse-deployment.git deploy
+             git clone --quiet https://github.com/dstrebul-sym/symverse-deployment.git deploy > /dev/null
              cd deploy
              git status
+             git pull
       - run: echo "Deploy test"
         name: "Echo test"
       - name: "kube availability test"
