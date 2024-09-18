@@ -13,7 +13,8 @@ jobs:
     steps:
       - name: Checkout repo 
         run: |
-             git clone --quiet https://github.com/dstrebul-sym/symverse-deployment.git deploy > /dev/null
+             rm -rf deploy
+             git clone https://github.com/dstrebul-sym/symverse-deployment.git deploy
              cd deploy
              git status
              git pull
