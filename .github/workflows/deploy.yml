@@ -1,4 +1,6 @@
-on: [push]
+on:
+  workflow_dispatch:
+  push:
 jobs:
   baseCall:
     uses: dstrebul-sym/symverse-infra/.github/workflows/base.yml@master
