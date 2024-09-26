@@ -1,2 +1,2 @@
-docker: develop
+docker: dev
 helm: develop
