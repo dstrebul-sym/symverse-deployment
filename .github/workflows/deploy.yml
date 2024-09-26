@@ -1,6 +1,7 @@
 on:
-  workflow_dispatch:
   push:
+    paths:
+      - '**.yaml'
 jobs:
   baseCall:
     uses: dstrebul-sym/symverse-infra/.github/workflows/base.yml@master
